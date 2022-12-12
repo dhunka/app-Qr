@@ -5,6 +5,8 @@ import{
   redirectLoggedInTo,
   canActivate,
 } from '@angular/fire/auth-guard';
+import { AjustesComponent } from './compon/ajustes/ajustes.component';
+
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
@@ -21,10 +23,39 @@ const routes: Routes = [
 		...canActivate(redirectUnauthorizedToLogin)
   },
   {
-    path: '**',
-    redirectTo: '',
+    path: '',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+    path:'ajustes',component:AjustesComponent,
+    ...canActivate(redirectUnauthorizedToLogin)
+    
+  },
+  
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
+  },
+ 
+  {
+    path: 'registro',
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+  },
+
+  {
+    path: 'estacionamiento',
+    loadChildren: () => import('./estacionamiento/estacionamiento.module').then( m => m.EstacionamientoPageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
+  },
+  {
+    path: 'qr',
+    loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
+  },
+
+ 
  
 ];
 

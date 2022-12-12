@@ -1,0 +1,30 @@
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label>Capacidad</ion-label>
+      <ion-input [(ngModel)]="data.estacionamiento1.capacidad"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ubicacion</ion-label>
+      <ion-input [(ngModel)]="data.estacionamiento1.ubicacion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Precio</ion-label>
+      <ion-input [(ngModel)]="data.estacionamiento1.precio"></ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <div *ngFor="let resultado of resultados">
+      <ion-card>
+      <h4 >Capacidad:{{resultado.estacionamiento1.capacidad}}</h4>
+      <h4>Ubicacion:{{resultado.estacionamiento1.ubicacion}}</h4>
+      <h4>Precio:{{resultado.estacionamiento1.precio}}</h4>
+      
+      </ion-card>
+    </div>
+  </ion-card>
+</ion-content>
+<ion-button (click)="crearNuevo()">
+  crear
+</ion-button>

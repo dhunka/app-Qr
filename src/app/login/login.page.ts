@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
+import { InteractionService } from '../services/interaction.service';
 
 @Component({
   selector: 'app-login',
@@ -10,55 +11,45 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  credentials:FormGroup;
+  credenciales = {
+   correo: null,
+   password: null,
+  }
 
   constructor(
+    private auth:AuthService,
     private fb: FormBuilder,
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private interaction:InteractionService
   ) { }
  
-  get email(){
-   return this.credentials.get('email');
-  }
-
-  get password(){
-    return this.credentials.get('password');
-   }
+ 
 
   ngOnInit() {
-    this.credentials = this.fb.group({
-      email:['',[Validators.required,Validators.email]],
-      password:['',[Validators.required,Validators.minLength(4)]]
-    })
+    
   }
   
-  async register(){
-    const loading = await this.loadingController.create();
-    await loading.present();
-    const user = await this.authService.register(this.credentials.value);
-    await loading.dismiss();
-
-    if (user){
-     this.router.navigateByUrl('home',{replaceUrl:true});
-    } else{
-      this.showAlert('registration failed','please try again');
-    }
-  }
+  
   
   async login(){
-    const loading = await this.loadingController.create();
-    await loading.present();
-    const user = await this.authService.login(this.credentials.value);
-    await loading.dismiss();
-
-    if (user){
-     this.router.navigateByUrl('home',{replaceUrl:true});
-    } else{
-      this.showAlert('login failed','please try again');
+    await this.interaction.presentLoading('ingresando...')
+    console.log('creden->',this.credenciales);
+    const res= await this.auth.login(this.credenciales.correo,this.credenciales.password).catch(error=>{
+      console.log('error');
+      this.interaction.closeLoading();
+      this.interaction.presentToast('usuario o contraseña invalido')
+      
+    } )
+    if(res){
+      console.log('res',res);
+      this.interaction.closeLoading();
+      this.interaction.presentToast('ingresado con exito')
+      this.router.navigate(['/home'])
     }
+    
   }
 
   async showAlert(header,message){
@@ -69,4 +60,5 @@ export class LoginPage implements OnInit {
     });
     await alert.present();
   }
+
 }

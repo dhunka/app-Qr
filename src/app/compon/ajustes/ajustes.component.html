@@ -1,0 +1,30 @@
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label>Marca</ion-label>
+      <ion-input [(ngModel)]="data.auto1.marca"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Modelo</ion-label>
+      <ion-input [(ngModel)]="data.auto1.modelo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Patente</ion-label>
+      <ion-input [(ngModel)]="data.auto1.patente"></ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <div *ngFor="let resultado of resultados">
+      <ion-card>
+      <h4 >Modelo:{{resultado.auto1.modelo}}</h4>
+      <h4>Marca:{{resultado.auto1.marca}}</h4>
+      <h4>Patente:{{resultado.auto1.patente}}</h4>
+      <h4>ubicacion:</h4>
+      </ion-card>
+    </div>
+  </ion-card>
+</ion-content>
+<ion-button (click)="crearNuevo()">
+  crear
+</ion-button>

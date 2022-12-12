@@ -1,0 +1,25 @@
+<ion-card >
+  <ion-item>
+    <ion-label>correo</ion-label>
+    <ion-input type="email" [(ngModel)]="datos.correo"></ion-input>
+  </ion-item>
+  <br>
+  <ion-item>
+    <ion-label>nombre</ion-label>
+    <ion-input [(ngModel)]="datos.nombre"></ion-input>
+  </ion-item>
+  <br>
+  <ion-item>
+    <ion-label>edad</ion-label>
+    <ion-input type="number" [(ngModel)]="datos.edad"></ion-input>
+  </ion-item>
+  <br>
+  <ion-item>
+    <ion-label>contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="datos.password"></ion-input>
+  </ion-item>
+</ion-card>
+   
+<ion-button (click)="register()">
+  Registrarse owo
+</ion-button>
